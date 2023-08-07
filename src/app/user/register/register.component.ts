@@ -12,11 +12,32 @@ export class RegisterComponent {
     Validators.minLength(3)
   
   ])
-  email = new FormControl('')
-  age = new FormControl()
-  password = new FormControl()
-  confirm_password = new FormControl()
-  phoneNumber = new FormControl()
+  email = new FormControl('', [
+    Validators.required,
+    Validators.email
+  ])
+  age = new FormControl('', [
+    Validators.required,
+    Validators.min(18),
+    Validators.max(40)
+
+  ])
+  password = new FormControl('',[
+    Validators.required,
+    Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm)
+  ])
+  confirm_password = new FormControl('',[
+    Validators.required    
+  ])
+  phoneNumber = new FormControl('',[
+    Validators.required,
+    Validators.min(13),
+    Validators.max(13)
+  ])
+
+  showAlert = false;
+  alertMsg = 'Please wait! Your account is being created';
+  alertColor = 'blue'
   registerForm = new FormGroup({
     name : this.name,
     email : this.email,
@@ -25,5 +46,9 @@ export class RegisterComponent {
     confirm_password : this.confirm_password,
     phoneNumber : this.phoneNumber
   });
+
+  register(){
+    this.showAlert = true;
+  }
 
 }
